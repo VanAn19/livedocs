@@ -9,6 +9,7 @@ import ActiveCollaborators from './ActiveCollaborators'
 import { Input } from './ui/input'
 import Image from 'next/image'
 import { updateDocument } from '@/lib/actions/room.actions'
+import Loader from './Loader'
 
 const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
@@ -56,7 +57,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
 
   return (
     <RoomProvider id={roomId}>
-      <ClientSideSuspense fallback={<div>Loading…</div>}>
+      <ClientSideSuspense fallback={<Loader />}>
         <div className='collaborative-room'>
           <Header>
             <div ref={containerRef} className='flex w-fit items-center justify-center gap-2'>
@@ -101,7 +102,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
               </SignedIn>
             </div>
           </Header>
-          <Editor />    
+          <Editor roomId={roomId} currentUserType={currentUserType}/>    
         </div>
       </ClientSideSuspense>
     </RoomProvider>

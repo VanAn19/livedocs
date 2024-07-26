@@ -24,6 +24,7 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
   });
 
   if (!room) redirect('/');
+  
   const userIds = Object.keys(room.usersAccesses);
   const users = await getClerkUser({ userIds });
 
